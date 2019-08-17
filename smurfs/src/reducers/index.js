@@ -1,14 +1,12 @@
 import {
-    FETCH_WEBCAM_DATA_START,
-    FETCH_WEBCAM_DATA_SUCCESS,
-    FETCH_WEBCAM_DATA_FAILURE,
-    POST_WEBCAM_DATA_START,
-    POST_WEBCAM_DATA_SUCCESS,
-    POST_WEBCAM_DATA_FAILURE
+    FETCH_SMURF_DATA_START,
+    FETCH_SMURF_DATA_SUCCESS,
+    POST_SMURF_DATA_START,
+    POST_SMURF_DATA_SUCCESS,
   } from '../actions';
   
 export  const initialState = {
-    webcams: [],
+    smurfers: [],
     isLoading: false,
     error: '',
     name: '',
@@ -16,36 +14,36 @@ export  const initialState = {
     height: ''
   };
   
-  export const reducer = (state = initialState, action) => {
+  export const reducer = (state = initialState, action, value) => {
     switch (action.type) {
-        case FETCH_WEBCAM_DATA_START:
+        case FETCH_SMURF_DATA_START:
             return {
               ...state,
               isLoading: true,
               error: ''
             };
-          case FETCH_WEBCAM_DATA_SUCCESS:
+          case FETCH_SMURF_DATA_SUCCESS:
             return {
               ...state,
               isLoading: false,
-              webcams: action.payload,
+              smurfers: action.payload,
               error: ''
             };
-            case POST_WEBCAM_DATA_START:
+            case POST_SMURF_DATA_START:
                 return {
                   ...state,
                   isLoading: true,
                   error: ''
                 };
-                case POST_WEBCAM_DATA_SUCCESS:
+                case POST_SMURF_DATA_SUCCESS:
                     return {
                       ...state,
                       isLoading: false,
-                      webcams: action.payload,
+                      smurfers: action.payload,
                       error: ''
                     };
                     case 'UPDATE_NAME':
-                        return {
+                            return {
                           ...state,
                           name: action.payload
                         };
@@ -59,7 +57,7 @@ export  const initialState = {
                                   ...state,
                                   height: action.payload
                                 };
-                                          default:
+                                                  default:
         return state;
     }
   };
