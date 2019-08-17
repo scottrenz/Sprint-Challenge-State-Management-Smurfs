@@ -16,7 +16,8 @@ export const getData = (props) => {
           dispatch({ type: FETCH_SMURF_DATA_SUCCESS, payload: res.data });
     })
         .catch(err => {
-          dispatch({ type: FETCH_SMURF_DATA_FAILURE, payload: err.response });
+          const error = 'Ya gone did smurfed!'
+          dispatch({ type: FETCH_SMURF_DATA_FAILURE, payload: JSON.stringify(error) });
         });
     };
   };
@@ -34,7 +35,9 @@ export  const postData = (props,setNewName,setNewAge,setNewHeight) => {
           setNewHeight('')
     }) 
         .catch(err => {
-          dispatch({ type: POST_SMURF_DATA_FAILURE, payload: err.response });
+const error = 'Ya gone did smurfed! Name/Age/Height are all required to create a smurf in the smurf DB and Name must be unique.'
+dispatch({ type: POST_SMURF_DATA_FAILURE, payload: JSON.stringify(error)
+  });
         });
     };
   };

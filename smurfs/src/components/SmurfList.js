@@ -8,6 +8,7 @@ import { getData} from '../actions';
 import {postData} from '../actions';
 
 import Smurfer from './Smurfer';
+import Error from './Error';
 
 export const FETCH_SMURF_DATA_START = 'FETCH_SMURF_DATA_START';
 export const FETCH_SMURF_DATA_SUCCESS = 'FETCH_SMURF_DATA_SUCCESS';
@@ -96,7 +97,7 @@ const SmurfList = props => {
 
 
       <button
-       onClick={() => props.postData({name: newName.trim(),age: newAge, height: newHeight.trim()},setNewName,setNewAge,setNewHeight)}
+       onClick={() => props.postData({name: newName ,age: newAge, height: newHeight },setNewName,setNewAge,setNewHeight)}
        >
         {props.isLoading ? (
           <Loader type="TailSpin" color="#00BFFF" height={parseInt("15")} width={parseInt("100")} />
@@ -104,8 +105,10 @@ const SmurfList = props => {
           'Post A Data'
         )}
       </button>
-      {props.smurfers &&
-        props.smurfers.map(cam => <Smurfer key={cam.id} smurfer={cam} />)}
+      {props.smurfers && !props.error &&
+        props.smurfers.map(smu => <ol key={smu.name}><Smurfer key={smu.id} smurfer={smu} /></ol>)}
+      {props.error &&
+        <Error  error={props.error} />}
         </>
   );
 };
@@ -114,6 +117,7 @@ const mapStateToProps = state => {
   return {
     isLoading: state.isLoading,
     smurfers: state.smurfers,
+    error: state.error,
     value : {
       nane: state.name,
       age: state.age,
