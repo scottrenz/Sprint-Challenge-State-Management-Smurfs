@@ -6,14 +6,25 @@ export const POST_SMURF_DATA_START = 'POST_SMURF_DATA_START';
 export const POST_SMURF_DATA_SUCCESS = 'POST_SMURF_DATA_SUCCESS';
 export const POST_SMURF_DATA_FAILURE = 'POST_SMURF_DATA_FAILURE';
 
-export const getData = (props) => {
+const express = require('express');
+const cors = require('cors');
+// const port = 3333;
 
+const server = express();
+server.use(express.json());
+server.use(cors());
+export const getData = (props) => {
+  
       return dispatch => {
       dispatch({ type: FETCH_SMURF_DATA_START });
-      axios
-      .get('http://localhost:3333/smurfs')
-      .then(res => {
-          dispatch({ type: FETCH_SMURF_DATA_SUCCESS, payload: res.data });
+      const api_key ='3XUiO0Nt2o9rv14lxqKJOPsJTyfEvim0'
+      server
+    // http://api.marketcheck.com/v1/search?api_key={{api_key}}&make=ford&car_type=used&city=Los Angeles&zip=90001&start=0&rows=10
+    .get('http://api.marketcheck.com/v1/search?api_key={{"3XUiO0Nt2o9rv14lxqKJOPsJTyfEvim0"}}&make=ford&car_type=used&city=Los Angeles&zip=90001&start=0&rows=10')
+    // .get('http://localhost:3333/smurfs')
+    .then(res => {
+console.log('res is',res)
+      dispatch({ type: FETCH_SMURF_DATA_SUCCESS, payload: res.data });
     })
         .catch(err => {
           const error = 'Ya gone did smurfed!'
